@@ -32,7 +32,8 @@ export default function Leaderboard() {
       <div
         className="bg-[#333333] bg-opacity-30 p-10 w-[80%] rounded-2xl shadow-lg text-center"
         style={{
-          marginTop: "150px", maxWidth: "800px", // Optional: Limit the width of the rectangle
+          marginTop: "150px",
+          maxWidth: "800px", // Optional: Limit the width of the rectangle
         }}
       >
         <h1 className="text-4xl font-bold text-white mb-6">Leaderboard</h1>
