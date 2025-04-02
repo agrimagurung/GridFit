@@ -22,8 +22,8 @@ const router = createBrowserRouter([
     element: <App />, // Main app component
     children: [
       {
-        index: true, // Default child route (Home page)
-        element: <Home />,
+        index: true, // Default child route (Login page)
+        element: <Login />, // Set Login as the default page
       },
       {
         path: "login", // Login page
