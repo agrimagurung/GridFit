@@ -170,7 +170,7 @@ export default function UserStats() {
       }}
     >
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-4xl font-bold text-white mb-20 text-center">
+        <h1 className="text-4xl font-bold text-white mb-20 text-center mt-28">
           Check your energy generation stats
         </h1>
 
@@ -261,7 +261,7 @@ export default function UserStats() {
             </div>
 
             <div className="flex flex-col items-center">
-              <Link to="/leaderboard">
+              <Link to={`/leaderboard/${studentId}`}>
                 <img
                   src={comparisonMetricsIcon}
                   alt="Comparison Icon"

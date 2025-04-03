@@ -28,16 +28,19 @@ export default function Home() {
           }}
         >
           <div className="flex justify-between items-center">
-            <h1 className="text-5xl font-bold text-white mb-4 leading-relaxed">
+            <h1 className="text-6xl font-bold text-white mb-4 leading-relaxed">
               Track your <span className="glow-text">energy</span> and <br />
               <span className="glow-text">charge</span> your{" "}
               <span className="glow-text">devices</span> on <br />
-              the <span className="glow-text">go!</span>
+              the <span className="glow-text">go!</span> <br />
+              <p className="text-2xl font-medium text-gray-300 mt-10">
+                View your energy stats and charge your phone anywhere
+              </p>
             </h1>
             <img
               src={PalmOfHand}
               alt="Palm of Hand illustration"
-              className="w-72 h-72 -ml-20 mt-4 aura-effect"
+              className="w-72 h-72 -ml-10 mt-4 aura-effect"
             />
           </div>
         </div>

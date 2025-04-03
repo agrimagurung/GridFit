@@ -38,7 +38,7 @@ export default function Navbar() {
 
       {/* Navigation Links */}
       <div className="flex space-x-4">
-        <NavLink to="/" className="text-white hover:text-green-500">
+        <NavLink to="/home" className="text-white hover:text-green-500">
           Home
         </NavLink>
         <NavLink to="/about" className="text-white hover:text-green-500">

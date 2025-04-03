@@ -1,5 +1,7 @@
 import express from "express";
 import { getDb } from "../db/connection.js"; // Import the database connection
+import { exec } from "child_process";
+import path from "path"; // Import the path module
 
 const router = express.Router();
 
@@ -54,4 +56,81 @@ router.post("/logout", (req, res) => {
   }
 });
 
+// POST /api/start-session - Trigger Python script
+router.post("/start-session", (req, res) => {
+  const { S_ID } = req.body;
+
+  if (!S_ID) {
+    return res.status(400).json({ error: "Student ID is required" });
+  }
+
+  // Dynamically resolve the path to the Python script
+  const scriptPath = path.resolve(__dirname, "../scripts/data.py");
+
+  // Log the resolved script path for debugging
+  console.log("Resolved script path:", scriptPath);
+
+  // Command to execute the Python script with the S_ID as an argument
+  const command = `python ${scriptPath} ${S_ID}`;
+
+  // Log the command being executed
+  console.log("Executing command:", command);
+
+  // Execute the Python script
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error("Error executing Python script:", error);
+      return res.status(500).json({ error: "Failed to start session", details: error.message });
+    }
+
+    if (stderr) {
+      console.error("Python script error:", stderr);
+      return res.status(500).json({ error: "Python script error", details: stderr });
+    }
+
+    console.log("Python script output:", stdout);
+    res.status(200).json({ message: "Session started successfully", output: stdout });
+  });
+});
+
 export default router;
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+
+  if (!/^[0-9]{7}$/.test(studentID)) {
+    setError("Invalid Student ID. It must be exactly 7 digits.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5050/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ S_ID: studentID }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to log in.");
+    }
+
+    const userData = await response.json();
+    setUser(userData);
+
+    // Trigger the Python script
+    await fetch("http://localhost:5050/api/start-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ S_ID: studentID }),
+    });
+
+    navigate(`/stats/${studentID}`);
+  } catch (error) {
+    console.error("Error during login:", error);
+    setError("Failed to log in. Please try again.");
+  }
+};

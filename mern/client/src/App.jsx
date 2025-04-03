@@ -25,13 +25,14 @@ const App = () => {
         <Navbar />
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/comparison-metrics" element={<ComparisonMetrics />} /> {/* Add new route */}
+          <Route path="/leaderboard/:id" element={<Leaderboard />} /> {/* Dynamic leaderboard route */}
+          <Route path="/comparison-metrics" element={<ComparisonMetrics />} />
 
           {/* Dynamic Route for User Stats */}
           <Route path="/stats/:id" element={<UserStats />} />
